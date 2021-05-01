@@ -1,13 +1,14 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 
-export interface Todo {
-  title: string;
-  completed: boolean;
-}
+import { Todo } from '../types/Todo';
+
+const { persistAtom } = recoilPersist();
 
 const initialTasks: Todo[] = [];
 
 export const todoState = atom({
   key: 'todo',
-  default: initialTasks
+  default: initialTasks,
+  effects_UNSTABLE: [persistAtom],
 });
